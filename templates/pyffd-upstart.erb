@@ -1,0 +1,15 @@
+description "pyffd"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+script
+    ENABLE_PYFFD="yes"
+    PYFFD_DIR=/opt/pyff
+    PYFFD_ARGS=""
+    test -f /etc/default/pyffd && . /etc/default/pyffd
+    if [ "x$ENABLE_PYFFD" = "xyes" ]; then
+        . ${PYFFD_DIR}/bin/activate
+        exec start-stop-daemon --chdir $PYFFD_DIR --start --name pyffd --startas pyffd $PYFFD_ARGS
+    fi
+end script

@@ -1,0 +1,3 @@
+ENABLE_PYFFD=yes
+PYFFD_DIR=/opt/pyff
+PYFFD_ARGS="--loglevel=INFO --log=syslog:auth --dir=${PYFFD_DIR} -C -p /var/run/pyffd.pid --frequency=300 *.fd"
