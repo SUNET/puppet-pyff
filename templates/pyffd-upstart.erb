@@ -10,7 +10,7 @@ script
     test -f /etc/default/pyffd && . /etc/default/pyffd
     if [ "x$ENABLE_PYFFD" = "xyes" ]; then
         . ${PYFFD_DIR}/bin/activate
-        exec start-stop-daemon --chdir $PYFFD_DIR --name pyffd --start ${PYFFD_DIR}/bin/pyffd -- $PYFFD_ARGS
+        exec start-stop-daemon --chdir $PYFFD_DIR --name pyffd --start --exec ${PYFFD_DIR}/bin/pyffd -- $PYFFD_ARGS
     else:
         echo "pyffd disabled - enable it in /etc/default/pyffd"
     fi
