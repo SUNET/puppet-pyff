@@ -1,7 +1,9 @@
 class pyff ($dir = '/opt/pyff') {
-  include python
-  package {"python-virtualenv":
-     ensure => latest
+  class { 'python':
+    version    => 'system',
+    dev        => true,
+    virtualenv => true,
+    gunicorn   => false,
   }
   python::virtualenv { $dir:
     ensure => present
@@ -25,5 +27,4 @@ class pyff ($dir = '/opt/pyff') {
     ensure    => 'running',
     require   => [File['pyffd-upstart'],File['pyffd-defaults']]
   }
-  Package["python-virtualenv"] -> Service["pyffd"]
 }
