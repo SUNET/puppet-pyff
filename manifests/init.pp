@@ -1,10 +1,15 @@
 class pyff ($dir = '/opt/pyff') {
+  package {'build-essential': ensure => installed}
+  package {'libyaml-dev': ensure => installed}
+  package {'libxml2-dev': ensure => installed} 
+  Package['build-essential'] -> Package['libxml2-dev'] -> Package['libyaml-dev']
   class { 'python':
     version    => 'system',
     dev        => true,
     virtualenv => true,
     gunicorn   => false,
   }
+  Package['libyaml-dev'] -> Class['python']
   python::virtualenv { $dir:
     ensure => present
   }
