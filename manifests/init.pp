@@ -27,6 +27,7 @@ class pyff ($dir = '/opt/pyff') {
     ensure    => file,
     path      => '/etc/default/pyffd',
     content   => template('pyff/pyffd-defaults.erb'),
+    replace   => false,
     notify    => Service['pyffd']
   }
   service {'pyffd':
