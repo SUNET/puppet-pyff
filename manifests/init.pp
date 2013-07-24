@@ -2,7 +2,8 @@ class pyff ($dir = '/opt/pyff') {
   package {'build-essential': ensure => installed}
   package {'libyaml-dev': ensure => installed}
   package {'libxml2-dev': ensure => installed} 
-  Package['build-essential'] -> Package['libxml2-dev'] -> Package['libyaml-dev']
+  package {'libxslt-dev': ensure => installed}
+  Package['build-essential'] -> Package['libxml2-dev'] -> Package['libxslt-dev'] -> Package['libyaml-dev']
   class { 'python':
     version    => 'system',
     dev        => true,
