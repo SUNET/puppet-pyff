@@ -30,8 +30,24 @@ class pyff ($dir = '/opt/pyff') {
     replace   => false,
     notify    => Service['pyffd']
   }
+  exec { "default-keygen":
+    command => "openssl genrsa 2048 > ${dir}/default.key":
+    creates => "${dir}/default.key"
+  }
+  exec { "default-signer":
+    command => "openssl req -x509 -sha1 -new -subj \"/CN=Default Signer (${fqdn}) - not for production use\" -key ${dir}/default.key -out ${dir}/default.crt"
+    creates => "${dir}/default.crt"
+  }
+  Exec['default-keygen'] -> Exec['default-signer']
+  file {"mdx.fd":
+    ensure  => file,
+    path    => "${dir}/mdx.fd",
+    content => template('pyff/mdx.erb'),
+    replace => false,
+  }
   service {'pyffd':
     ensure    => 'running',
-    require   => [File['pyffd-upstart'],File['pyffd-defaults']]
+    require   => [File['pyffd-upstart'],File['pyffd-defaults'],File['mdx.fd']]
   }
+  Exec['default-signer'] -> Service['pyffd']
 }
