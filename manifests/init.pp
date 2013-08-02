@@ -35,7 +35,7 @@ class pyff ($dir = '/opt/pyff') {
     creates => "${dir}/default.key"
   }
   exec { "default-signer":
-    command => "openssl req -x509 -sha1 -new -subj \"/CN=Default Signer (${fqdn}) - not for production use\" -key ${dir}/default.key -out ${dir}/default.crt",
+    command => "openssl req -x509 -sha1 -new -subj \"/CN=Default Signer (${fqdn})\" -key ${dir}/default.key -out ${dir}/default.crt",
     creates => "${dir}/default.crt"
   }
   Exec['default-keygen'] -> Exec['default-signer']
