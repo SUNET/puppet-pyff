@@ -1,4 +1,4 @@
-class pyff ($dir = '/opt/pyff') {
+class pyff ($dir = '/opt/pyff', $version = undef) {
   package {'build-essential': ensure => installed}
   package {'libyaml-dev': ensure => installed}
   package {'libxml2-dev': ensure => installed} 
@@ -14,9 +14,18 @@ class pyff ($dir = '/opt/pyff') {
   python::virtualenv { $dir:
     ensure => present
   }
-  python::pip { 'pyff':
+  $ver = $version ? {
+    undef     => '',
+    /[0-9]/   => "==${version}",
+    default   => ''
+  }
+  python::pip { 'pyff${ver}':
     virtualenv => $dir
   }
+  file {$dir:
+    ensure    => directory
+  }
+  File[$dir] -> Exec['default-keygen']
   file {'pyffd-upstart':
     ensure    => file,
     path      => '/etc/init/pyffd.conf',
