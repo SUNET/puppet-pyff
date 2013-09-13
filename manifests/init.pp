@@ -1,4 +1,11 @@
-class pyff ($dir = '/opt/pyff', $version = undef) {
+class pyff ($dir = '/opt/pyff', 
+            $version = undef, 
+            $key = "default.key", 
+            $cert = "default.crt", 
+            $load = [],
+            $cacheDuration = "PT5H",
+            $validUntil = "PT10D",
+            $replace = true) {
   package {'build-essential': ensure => installed}
   package {'libyaml-dev': ensure => installed}
   package {'libxml2-dev': ensure => installed} 
@@ -52,7 +59,7 @@ class pyff ($dir = '/opt/pyff', $version = undef) {
     ensure  => file,
     path    => "${dir}/mdx.fd",
     content => template('pyff/mdx.erb'),
-    replace => false,
+    replace => $replace,
   }
   service {'pyffd':
     ensure    => 'running',

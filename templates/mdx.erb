@@ -1,6 +1,8 @@
 - when update:
     - load:
-       - /opt/pyff/entities
+       <% @load.each do |elt| -%>
+       - <%= elt %>
+       <% end -%>
     - break:
 - when request:
     - select
@@ -10,11 +12,11 @@
                  stylesheet: tidy.xsl
              - first
              - finalize:
-                cacheDuration: PT5H
-                validUntil: P10D
+                cacheDuration: <%= @cacheDuration %>
+                validUntil: <%= @validUntil %>
              - sign:
-                 key: default.key
-                 cert: default.crt
+                 key: <%= @key %>
+                 cert: <%= @cert %>
              - emit application/xml
              - break
         - when accept application/json:
