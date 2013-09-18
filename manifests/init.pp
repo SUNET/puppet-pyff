@@ -62,6 +62,7 @@ class pyff ($dir = '/opt/pyff',
     path    => "${dir}/mdx.fd",
     content => template('pyff/mdx.erb'),
     replace => $replace,
+    notify  => Service['pyffd']
   }
   service {'pyffd':
     ensure    => 'running',
