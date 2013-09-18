@@ -1,8 +1,8 @@
 - when update:
     - load:
-       <% @load.each do |elt| -%>
-       - <%= elt %>
-       <% end -%>
+    <% @load.each do |elt| -%>
+        - <%= elt %>
+    <% end -%>
     - break:
 - when request:
     - select
