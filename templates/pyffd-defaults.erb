@@ -1,4 +1,4 @@
 ENABLE_PYFFD=yes
-PYFFD_DIR=/opt/pyff
+PYFFD_DIR="<%= @dir %>"
 PYFFD_PIPES=mdx.fd
-PYFFD_ARGS="--loglevel=INFO -P80 -H0.0.0.0 --log=syslog:auth --dir=${PYFFD_DIR} -C -p /var/run/pyffd.pid --frequency=300 $PYFFD_PIPES"
+PYFFD_ARGS="--loglevel=INFO -P<%= @port %> -H<%= @address %> --log=syslog:auth --dir=${PYFFD_DIR} -C -p /var/run/pyffd.pid --frequency=300 $PYFFD_PIPES"

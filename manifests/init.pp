@@ -5,7 +5,9 @@ class pyff ($dir = '/opt/pyff',
             $load = [],
             $cacheDuration = "PT5H",
             $validUntil = "PT10D",
-            $replace = true) {
+            $replace = true,
+            $port = "8080",
+            $address = "127.0.0.1") {
   package {'build-essential': ensure => installed}
   package {'libyaml-dev': ensure => installed}
   package {'libxml2-dev': ensure => installed} 
@@ -43,7 +45,7 @@ class pyff ($dir = '/opt/pyff',
     ensure    => file,
     path      => '/etc/default/pyffd',
     content   => template('pyff/pyffd-defaults.erb'),
-    replace   => false,
+    replace   => $replace,
     notify    => Service['pyffd']
   }
   exec { "default-keygen":
