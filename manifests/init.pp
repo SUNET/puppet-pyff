@@ -31,9 +31,6 @@ class pyff ($dir = '/opt/pyff',
   python::pip { 'pyff${ver}':
     virtualenv => $dir
   }
-  file {$dir:
-    ensure    => directory
-  }
   File[$dir] -> Exec['default-keygen']
   file {'pyffd-upstart':
     ensure    => file,
