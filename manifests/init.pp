@@ -31,7 +31,7 @@ class pyff ($dir = '/opt/pyff',
   python::pip { 'pyff${ver}':
     virtualenv => $dir
   }
-  File[$dir] -> Exec['default-keygen']
+  File['pyffd-defaults'] -> Exec['default-keygen']
   file {'pyffd-upstart':
     ensure    => file,
     path      => '/etc/init/pyffd.conf',
@@ -66,4 +66,5 @@ class pyff ($dir = '/opt/pyff',
     require   => [File['pyffd-upstart'],File['pyffd-defaults'],File['mdx.fd']]
   }
   Exec['default-signer'] -> Service['pyffd']
+  File['mdx.fd'] -> Service['pyffd']
 }
