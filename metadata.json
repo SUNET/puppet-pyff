@@ -1,13 +1,13 @@
 {
-  "name": "puppet-mon",
+  "name": "puppet-pyff",
   "version": "1.0.0",
   "author": "Leif Joahansson",
-  "summary": "A puppet module for mon",
+  "summary": "A puppet module for pyff",
   "license": "BSD",
-  "source": "git://github.com/samlbits/puppet-mon",
-  "project_page": "https://github.com/samlbits/puppet-mon",
-  "issues_url": "https://github.com/samlbits/puppet-mon/issues",
-  "description": "Installs and manages mon & configuration",
+  "source": "git://github.com/samlbits/puppet-pyff",
+  "project_page": "https://github.com/samlbits/puppet-pyff",
+  "issues_url": "https://github.com/samlbits/puppet-pyff/issues",
+  "description": "Installs and manages pyff & configuration",
   "dependencies": [
   
   ]
