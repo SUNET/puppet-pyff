@@ -25,7 +25,7 @@ class pyff ($dir = '/opt/pyff',
     undef     => '',
     /[0-9]/   => "==${version}",
     default   => ''
-  } ->
+  }
   python::virtualenv { $dir:
     ensure => present
   }
