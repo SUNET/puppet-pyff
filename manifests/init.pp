@@ -12,7 +12,8 @@ class pyff ($dir = '/opt/pyff',
   package {'libyaml-dev': ensure => installed}
   package {'libxml2-dev': ensure => installed} 
   package {'libxslt-dev': ensure => installed}
-  Package['build-essential'] -> Package['libxml2-dev'] -> Package['libxslt-dev'] -> Package['libyaml-dev']
+  package {'libz-dev': ensure => installed}
+  Package['build-essential'] -> Package['libxml2-dev'] -> Package['libxslt-dev'] -> Package['libyaml-dev'] -> Package['libz-dev']
   class { 'python':
     version    => 'system',
     dev        => true,
@@ -20,16 +21,17 @@ class pyff ($dir = '/opt/pyff',
     gunicorn   => false,
   }
   Package['libyaml-dev'] -> Class['python']
-  python::virtualenv { $dir:
-    ensure => present
-  }
   $ver = $version ? {
     undef     => '',
     /[0-9]/   => "==${version}",
     default   => ''
+  } ->
+  python::virtualenv { $dir:
+    ensure => present
   }
   python::pip { 'pyff${ver}':
-    virtualenv => $dir
+    virtualenv => $dir,
+    pkgname    => 'pyff${ver}'
   }
   File['pyffd-defaults'] -> Exec['default-keygen']
   file {'pyffd-upstart':
